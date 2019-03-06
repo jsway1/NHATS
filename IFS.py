@@ -39,6 +39,8 @@ d['logIFS'] = np.log10(d['injury_frequency_and_severity'])
 
 # Note that we don't lose any data when doing this transformation, since all the values of `injury_frequency_and_severity` are strictly positive.
 
+np.sum(d['injury_frequency_and_severity'] <= 0)
+
 # # Plotting
 
 sns.jointplot(x = 'percent_automatable', y = 'logIFS', data = d, kind = 'reg', line_kws={'color':'red'});
@@ -49,8 +51,6 @@ X = d['percent_automatable']
 X = sm.add_constant(X)
 results = sm.OLS(d['logIFS'], X).fit()
 print(results.summary())
-
-
 
 # In the above model, we find that `percent_automatable` has a coefficient of 0.007. Since we have modeled IFS on the log$_{10}$ scale, this now has a multiplicative interpretation. This model indicates that for every 1% increase in automatability, the IFS increases by a factor of $10^{0.007} = 1.016$, or 1.6%. So, for example, if automatability increases from 20% to 25%, we expect IFS to increase by a factor of $10^{0.007 \times 5} = 1.084$ or 8.4%.
 
