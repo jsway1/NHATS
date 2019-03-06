@@ -43,7 +43,8 @@ np.sum(d['injury_frequency_and_severity'] <= 0)
 
 # # Plotting
 
-sns.jointplot(x = 'percent_automatable', y = 'logIFS', data = d, kind = 'reg', line_kws={'color':'red'});
+g = sns.jointplot(x = 'percent_automatable', y = 'logIFS', data = d, kind = 'reg', line_kws={'color':'red'});
+g.set_axis_labels('Percent automatable', 'log10 (IFS)');
 
 # # Modeling
 
@@ -65,6 +66,11 @@ print(results2.summary())
 
 # ## Residual analysis
 
-sns.residplot(x = 'percent_automatable', y = 'logIFS', data = d, lowess=True, line_kws={'color':'red', 'linewidth':5});
+# +
+ax = sns.residplot(x = 'percent_automatable', y = 'logIFS', data = d, lowess=True, line_kws={'color':'red', 'linewidth':5});
+ax.set(xlabel='Percent automatable',ylabel='Residuals');
+
+
+# -
 
 # This looks decent, with no obvious strong pattern in the residuals
